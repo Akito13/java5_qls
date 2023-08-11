@@ -16,7 +16,7 @@
                  d-flex justify-content-center align-items-center flex-column ${not empty book.img ? "d-none":""}"
                  style="cursor: pointer; font-size: 3rem; border-color: var(--main-text-color)!important;">
                 <i class="bi bi-plus-circle-dotted main-text-color"></i>
-                <p class="fs-3 text-black">Add an image</p>
+                <p class="fs-3 text-black">Thêm ảnh</p>
             </div>
             <img id="bookImg" src="${pageContext.servletContext.contextPath}/images/${book.img}"
                  alt="Book thumbnail" class="h-100 img-fluid pointer-event ${not empty book.img ? "":"d-none"}" style="cursor: pointer"/>
@@ -37,23 +37,23 @@
                 </c:choose>
                 <c:if test="${action.equals('edit')}">
                     <div class="mb-3">
-                        <form:label path="maSach" for="maSach" cssClass="form-label text-black">Book ID</form:label>
+                        <form:label path="maSach" for="maSach" cssClass="form-label text-black">Mã sách</form:label>
                         <form:input path="maSach" type="text" cssClass="form-control" id="maSach" readonly="true"/>
                     </div>
                 </c:if>
                 <div class="mb-3">
-                    <form:label path="tenSach" for="tenSach" cssClass="form-label text-black">Book name</form:label>
+                    <form:label path="tenSach" for="tenSach" cssClass="form-label text-black">Tên sách</form:label>
                     <form:input path="tenSach" type="text" cssClass="form-control" id="tenSach" />
                     <form:errors path="tenSach" cssClass="text-danger"/>
                 </div>
                 <div class="mb-3 row">
                     <div class="col-lg-6 col-12">
-                        <form:label path="tacGia" for="tacGia" cssClass="form-label text-black">Author</form:label>
+                        <form:label path="tacGia" for="tacGia" cssClass="form-label text-black">Tác giả</form:label>
                         <form:input path="tacGia" type="text" cssClass="form-control" id="tacGia" />
                         <form:errors path="tacGia" cssClass="text-danger"/>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <form:label path="tacGia" for="tacGia" cssClass="form-label text-black">Category</form:label>
+                        <form:label path="tacGia" for="tacGia" cssClass="form-label text-black">Loại sách</form:label>
                         <form:select path="loai.maLoai" cssClass="form-select" aria-label="Default select example">
                             <form:options items="${categories}" itemValue="maLoai" itemLabel="tenLoai"/>
                         </form:select>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="mb-3 row">
                     <div class="col-lg-6 col-12">
-                        <form:label path="gia" for="gia" cssClass="form-label text-black">Price</form:label>
+                        <form:label path="gia" for="gia" cssClass="form-label text-black">Đơn giá</form:label>
                         <div class="input-group">
                             <span class="input-group-text">VND</span>
                             <form:input path="gia" type="text" cssClass="form-control" id="gia" />
@@ -69,19 +69,19 @@
                         <form:errors path="gia" cssClass="text-danger"/>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <form:label path="nxb" for="nxb" cssClass="form-label text-black">Publish Date</form:label>
+                        <form:label path="nxb" for="nxb" cssClass="form-label text-black">Ngày xuất bản</form:label>
                         <form:input path="nxb" type="date" cssClass="form-control" id="nxb" />
                         <form:errors path="nxb" cssClass="text-danger"/>
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <div class="col-lg-6 col-12">
-                        <form:label path="soLuong" for="soLuong" cssClass="form-label text-black">Quantity</form:label>
+                        <form:label path="soLuong" for="soLuong" cssClass="form-label text-black">Số lượng</form:label>
                         <form:input path="soLuong" type="text" cssClass="form-control" id="soLuong" />
                         <form:errors path="soLuong" cssClass="text-danger"/>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <form:label path="img" for="springImg" cssClass="form-label text-black">Image</form:label>
+                        <form:label path="img" for="springImg" cssClass="form-label text-black">Hình ảnh</form:label>
                         <form:input path="img" id="springImg" cssClass="form-control" readonly="true"/>
                         <form:errors path="img" cssClass="text-danger"/>
                         <input type="file" class="d-none" id="img" name="hiddenImgInput" accept="image/png,image/jpeg,image/jpg,image/webp"/>
