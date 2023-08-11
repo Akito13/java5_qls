@@ -87,6 +87,11 @@
                         <input type="file" class="d-none" id="img" name="hiddenImgInput" accept="image/png,image/jpeg,image/jpg,image/webp"/>
                     </div>
                 </div>
+                <div class="mb-3">
+                    <form:label path="chiTiet" for="chiTiet" cssClass="form-label text-black">Chi tiết</form:label>
+                    <form:textarea path="chiTiet" cssClass="form-control" id="chiTiet" cssStyle="min-height: 100px;"/>
+                    <form:errors path="chiTiet" cssClass="text-danger"/>
+                </div>
                 <div class="mt-3 text-end">
                     <button class="btn btn-success">${fn:toUpperCase(action)}</button>
                 </div>

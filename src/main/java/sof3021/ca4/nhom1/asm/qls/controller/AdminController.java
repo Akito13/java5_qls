@@ -103,15 +103,17 @@ public class AdminController {
                 }
                 File data = new File(folder, fileName);
                 file.transferTo(data);
+                System.out.println("Multipart is not empty");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Something wrong happened");
                 result.rejectValue("img", "book.img.error", "Failed to upload image");
             }
         }
         String action = req.getParameter("action");
         if(result.hasErrors()){
             params.addFlashAttribute("error", "Could not complete task");
-            action = null;
+//            action = null;
         } else {
             params.addFlashAttribute("message",   (action.equals("create") ? "Created":"Edited")
                     + " successfully");
@@ -151,14 +153,6 @@ public class AdminController {
         model.addAttribute("dt", doanhThu);
         model.addAttribute("view", "pages/stats.jsp");
         return "index";
-    }
-
-    private Sort createSort(Sort sort, String orderBy, String sortBy){
-        switch (sortBy) {
-            case "dt" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "tongDoanhThu");
-            default -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "soLuongBan");
-        }
-        return sort;
     }
 
     @ModelAttribute("categories")
