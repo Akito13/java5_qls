@@ -49,7 +49,7 @@
                         </td>
                         <td class="text-center">${order.diaChiNhan}</td>
                         <td>
-                            <a href="/account/order/${order.maDH}" class="btn btn-light">
+                            <a href="/${fromAdmin ? 'admin':'account'}/order/${order.maDH}" class="btn btn-light">
                                 <i class="bi bi-search fs-5" style="-webkit-text-stroke: 1px var(--main-text-color);"></i>
                             </a>
                         </td>

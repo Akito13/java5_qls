@@ -15,14 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sof3021.ca4.nhom1.asm.qls.model.Book;
-import sof3021.ca4.nhom1.asm.qls.model.Category;
-import sof3021.ca4.nhom1.asm.qls.model.Order;
-import sof3021.ca4.nhom1.asm.qls.model.Report;
-import sof3021.ca4.nhom1.asm.qls.repository.BookRepository;
-import sof3021.ca4.nhom1.asm.qls.repository.CategoryRepository;
-import sof3021.ca4.nhom1.asm.qls.repository.OrderDetailsRepository;
-import sof3021.ca4.nhom1.asm.qls.repository.ReportRepository;
+import sof3021.ca4.nhom1.asm.qls.model.*;
+import sof3021.ca4.nhom1.asm.qls.repository.*;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -43,6 +37,8 @@ public class AdminController {
     private CategoryRepository cateRepo;
     @Autowired
     private OrderDetailsRepository odRepo;
+    @Autowired
+    private OrderRepository oRepo;
 
     @GetMapping("/book/remove/{id}")
     public String delete(Model model, @PathVariable Optional<Integer> id){
@@ -153,6 +149,63 @@ public class AdminController {
         model.addAttribute("dt", doanhThu);
         model.addAttribute("view", "pages/stats.jsp");
         return "index";
+    }
+
+    @GetMapping("/orders")
+    public String getUserOrders(Model model,
+                                @RequestParam("sort") Optional<String> sortBy,
+                                @RequestParam("order") Optional<String> orderBy,
+                                @RequestParam("page") Optional<Integer> currentPage){
+        String sb = sortBy.orElse("default");
+        String ob = orderBy.orElse("h");
+        Sort sort = null;
+        sort = createSort(sort, ob, sb);
+        Pageable pageable = PageRequest.of(currentPage.orElse(0), 8, sort);
+        Page<Order> page = oRepo.findAll(pageable);
+        model.addAttribute("fromAdmin", true);
+        model.addAttribute("order", ob);
+        model.addAttribute("sort", sb);
+        model.addAttribute("orders", page.getContent());
+        model.addAttribute("page", page);
+        model.addAttribute("view", "pages/account-orders.jsp");
+        return "index";
+    }
+
+    @GetMapping("/order/{id}")
+    public String getOrder(@PathVariable Optional<Integer> id,
+                           Model model) {
+        String errors = null;
+        if(id.isEmpty())
+            errors = "Mã đơn hàng rỗng";
+        else {
+            List<OrderDetails> orderDetails = odRepo.findAllByOrder(id.get());
+            if(orderDetails.isEmpty())
+                errors = "Không tìm thấy thông tin về đơn hàng số " + id.get();
+            else {
+                double totalAmount = orderDetails.stream()
+                        .reduce(0.0,
+                                (currentValue, currentDetails) -> currentValue + currentDetails.getTongTien(),
+                                Double::sum);
+                model.addAttribute("totalAmount", totalAmount);
+                model.addAttribute("order", orderDetails.get(0).getOrder());
+                model.addAttribute("details", orderDetails);
+            }
+        }
+        if(errors != null) {
+            model.addAttribute("errors", errors);
+        }
+        model.addAttribute("view", "pages/order-details.jsp");
+        return "index";
+    }
+
+    private Sort createSort(Sort sort, String orderBy, String sortBy){
+        switch (sortBy) {
+            case "n" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "tenNguoiNhan");
+            case "p" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "sdt");
+            case "d" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "ngayXuat");
+            default -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "maDH");
+        }
+        return sort;
     }
 
     @ModelAttribute("categories")

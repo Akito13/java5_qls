@@ -3,6 +3,7 @@ package sof3021.ca4.nhom1.asm.qls.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import sof3021.ca4.nhom1.asm.qls.model.Order;
 import sof3021.ca4.nhom1.asm.qls.model.OrderDetails;
 import sof3021.ca4.nhom1.asm.qls.model.Report;
 
@@ -13,6 +14,9 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Inte
     @Query("SELECT od FROM OrderDetails od WHERE od.order.maDH = " +
             "(SELECT o.maDH FROM Order o WHERE o.user.maKH = ?1 AND o.maDH = ?2)")
     List<OrderDetails> findAllByUserAndOrder(Integer userId, Integer orderId);
+
+    @Query("SELECT od FROM OrderDetails  od WHERE od.order.maDH=?1")
+    List<OrderDetails> findAllByOrder(Integer orderId);
     @Query(value = "SELECT\n" +
             "(\n" +
             "SELECT sum(dhct.tongtien) FROM donhangchitiet dhct\n" +

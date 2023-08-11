@@ -38,6 +38,12 @@
                 </div>
                 <p class="m-0">Thống kê</p>
             </a>
+            <a href="${pageContext.servletContext.contextPath}/admin/orders" class="nav-link my-2 my-lg-0 me-4 text-decoration-none">
+                <div class="text-center">
+                    <i class="bi bi-kanban fs-3"></i>
+                </div>
+                <p class="m-0">Quản lý đơn</p>
+            </a>
         </c:if>
         <form class="mb-2 mb-lg-0 mx-auto position-relative" role="search" method="get" action="/books" style="flex-grow: 0.5;">
               <input name="bookName" type="search" class="form-control rounded-pill" placeholder="Tìm tên sách..." aria-label="Search">

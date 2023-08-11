@@ -32,6 +32,14 @@
                     <label for="nguoiDat">Người nhận hàng</label>
                     <input class="form-control" id="nguoiDat" value="${order.tenNguoiNhan}" type="text" readonly disabled>
                 </div>
+                <div class="col-12 col-md-6 mb-2">
+                    <label for="sdt">Số điện thoại</label>
+                    <input class="form-control" id="sdt" value="${order.sdt}" type="text" readonly disabled>
+                </div>
+                <div class="col-12 col-md-6 mb-2">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" value="${order.user.email}" type="text" readonly disabled>
+                </div>
             </div>
         </div>
         <div class="overflow-hidden border border-1 container p-0 rounded-3 my-5" style="border-color: var(--main-text-color)!important;">
