@@ -47,6 +47,6 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/imgs/**").addResourceLocations("file:///D://Gawr Gura//DiscordStuff//FPTDocuments//JAVA_5//code//qls//images//");
+        registry.addResourceHandler("/imgs/**").addResourceLocations("file:/images/");
     }
 }
