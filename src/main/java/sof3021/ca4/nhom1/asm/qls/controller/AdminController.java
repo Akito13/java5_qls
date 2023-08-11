@@ -93,6 +93,8 @@ public class AdminController {
         if(!file.isEmpty()) {
             try {
                 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+                System.out.println(app);
+                System.out.println(req.getContextPath()+"/images/");
                 File folder = new File(app.getRealPath(req.getContextPath()+"/images/"));
                 if(!Files.exists(folder.toPath())){
                     Files.createDirectories(folder.toPath());
