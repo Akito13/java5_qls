@@ -26,7 +26,7 @@
   <div class="px-3 py-2 " style="background-color: #fff;/*#1d3557*/">
     <div class="mx-auto">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start w-100">
-        <a class="me-3 ms-4" href="${pageContext.servletContext.contextPath}/"><img width="120" height="70" src="${pageContext.request.contextPath}/images/Logo.jpg" alt="logo"/></a>
+        <a class="me-3 ms-4" href="${pageContext.servletContext.contextPath}/"><img width="120" height="70" src="/imgs/Logo.jpg" alt="logo"/></a>
         <a href="${pageContext.servletContext.contextPath}/" class="nav-link my-2 my-lg-0 me-4 text-decoration-none">
           <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
           <span>Trang chủ</span>

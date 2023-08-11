@@ -24,7 +24,7 @@
                 <div class="d-flex text-black my-3">
                     <div class="w-25 d-flex">
                         <div class="text-center align-self-center" style="width: 80px; height: 80px;">
-                            <img class="img-fluid" style="height: 100%;" src="${pageContext.servletContext.contextPath}/images/${book.value.img}" alt="Ảnh sách">
+                            <img class="img-fluid" style="height: 100%;" src="/imgs/${book.value.img}" alt="Ảnh sách">
                         </div>
                         <div class="align-self-center" style="max-width: 240px;">
                             <a id="book-link" href="${pageContext.servletContext.contextPath}/books/${book.value.maSach}" class="text-decoration-none text-black">

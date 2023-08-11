@@ -9,7 +9,7 @@
 </style>
 <div class="container py-5">
   <div class="mb-3 d-flex justify-content-evenly">
-    <div class="card" style="width: 18rem; background-image: url('/images/stats-1.avif'); background-size: cover; height: 12rem;">
+    <div class="card" style="width: 18rem; background-image: url('/imgs/stats-1.avif'); background-size: cover; height: 12rem;">
       <div class="card-body">
         <h5 class="card-title text-white">Doanh thu tháng này</h5>
         <p class="card-text text-white">
@@ -17,7 +17,7 @@
         </p>
       </div>
     </div>
-    <div class="card" style="width: 18rem; background-image: url('/images/stats-2.avif'); background-size: cover; height: 12rem;">
+    <div class="card" style="width: 18rem; background-image: url('/imgs/stats-2.avif'); background-size: cover; height: 12rem;">
       <div class="card-body">
         <h5 class="card-title text-white">Doanh thu trong năm</h5>
         <p class="card-text text-white">
@@ -55,7 +55,7 @@
           <div class="d-flex text-black my-3">
             <div class="w-25 d-flex">
               <div class="text-center align-self-center" style="width: 80px; height: 80px;">
-                <img class="img-fluid" style="height: 100%;" src="${pageContext.servletContext.contextPath}/images/${book.img}" alt="Ảnh sách">
+                <img class="img-fluid" style="height: 100%;" src="/imgs/${book.img}" alt="Ảnh sách">
               </div>
               <div class="align-self-center" style="max-width: 240px;">
                 <a id="book-link" href="${pageContext.servletContext.contextPath}/books/${book.maSach}" class="text-decoration-none text-black">

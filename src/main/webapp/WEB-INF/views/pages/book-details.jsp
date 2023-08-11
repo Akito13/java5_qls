@@ -7,7 +7,7 @@
                         mx-auto pb-5" style="width: 90%">
             <aside class="col col-lg-5">
                 <div class="w-75 float-lg-end mx-auto text-center text-lg-start" style="height: 420px;">
-                    <img src="/images/${book.img}" alt="Book thumbnail" class="h-100 img-fluid">
+                    <img src="/imgs/${book.img}" alt="Book thumbnail" class="h-100 img-fluid">
                 </div>
             </aside>
             <main class="col col-lg-7 main-text-color py-3 px-0">

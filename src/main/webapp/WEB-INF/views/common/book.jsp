@@ -11,7 +11,7 @@
     <div class="position-absolute w-100 h-100 book-content-blur"></div>
     <a href="${pageContext.servletContext.contextPath}/books/${param.maSach}"
        class="card-header p-0" style="height: 280px; z-index: 1000;">
-        <img draggable="false" src="${pageContext.servletContext.contextPath}/images/${param.img}" class="book-img-md " alt="${param.tenSach}">
+        <img draggable="false" src="/imgs/${param.img}" class="book-img-md " alt="${param.tenSach}">
     </a>
     <div class="card-body">
         <p class="card-text fs-6">NXB: ${param.nxb}</p>

@@ -10,6 +10,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.filter.RequestContextFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import sof3021.ca4.nhom1.asm.qls.filter.AdminInterceptor;
 
@@ -42,5 +43,10 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/account/**");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/imgs/**").addResourceLocations("file:///D://Gawr Gura//DiscordStuff//FPTDocuments//JAVA_5//code//qls//images//");
     }
 }

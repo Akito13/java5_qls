@@ -19,7 +19,12 @@ import sof3021.ca4.nhom1.asm.qls.model.*;
 import sof3021.ca4.nhom1.asm.qls.repository.*;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -94,13 +99,30 @@ public class AdminController {
             try {
                 String fileName = StringUtils.cleanPath(file.getOriginalFilename());
                 System.out.println(app);
-                System.out.println(req.getContextPath()+"/images/");
-                File folder = new File(app.getRealPath(req.getContextPath()+"/images/"));
-                if(!Files.exists(folder.toPath())){
-                    Files.createDirectories(folder.toPath());
+//                System.out.println(req.getServletPath()+"/images/");
+//                File folder = new File(app.getRealPath(req.getServletPath()+"/images/"));
+                String uploadPath = "images/";
+                Path folder = Paths.get(uploadPath);
+//                byte[] bytes = file.getBytes();
+//                Files.write(Paths.get(filePath), bytes);
+//                String folderPath = "src/webapp/images/";
+//                FileOutputStream output = new FileOutputStream(folderPath + fileName);
+//                output.write(file.getBytes());
+//                output.close();
+//                String filePath = folder + File.separator + fileName;
+//                System.out.println(filePath);
+//                Files.copy(file.getInputStream(), Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
+//                InputStream file1 = app.getResourceAsStream("/images/"+fileName);
+//                file.getInputStream()
+                if(!Files.exists(folder)){
+                    Files.createDirectories(folder);
                 }
-                File data = new File(folder, fileName);
-                file.transferTo(data);
+                InputStream inputStream = file.getInputStream();
+                Path filePath = folder.resolve(fileName);
+                System.out.println(filePath.toAbsolutePath());
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+//                File data = new File(folder, fileName);
+//                file.transferTo(file1.);
                 System.out.println("Multipart is not empty");
             } catch (Exception e) {
                 e.printStackTrace();
