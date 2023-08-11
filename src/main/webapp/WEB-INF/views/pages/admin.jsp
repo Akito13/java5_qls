@@ -18,7 +18,7 @@
                 <i class="bi bi-plus-circle-dotted main-text-color"></i>
                 <p class="fs-3 text-black">Thêm ảnh</p>
             </div>
-            <img id="bookImg" src="${pageContext.servletContext.contextPath}/images/${book.img}"
+            <img id="bookImg" src="/imgs/${book.img}"
                  alt="Book thumbnail" class="h-100 img-fluid pointer-event ${not empty book.img ? "":"d-none"}" style="cursor: pointer"/>
 <%--            <img id="bookImg1" src="${pageContext.servletContext.contextPath}/images/${book.img}" alt="Book thumbnail" class="h-100 img-fluid pointer-event" style="cursor: pointer"/>--%>
         </div>
