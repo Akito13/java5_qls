@@ -22,6 +22,7 @@ public class HomeController {
     @GetMapping(path = {"/", "/home"})
     public String home(Model model){
         model.addAttribute("books", bookRepo.findAll());
+        model.addAttribute("hasSubHead", true);
         model.addAttribute("view", "pages/main.jsp");
         model.addAttribute("from", "/");
         return "index";

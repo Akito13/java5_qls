@@ -169,7 +169,7 @@ body.active {
 .frmBox .form form input[type="submit"] {
     cursor: pointer;
     border: none;
-    max-width: 100px;
+    /*max-width: 105px;*/
 }
 
 .frmBox .form.signInForm form input[type="submit"] {

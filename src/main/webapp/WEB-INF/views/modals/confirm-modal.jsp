@@ -15,8 +15,8 @@
       </div>
       <div class="modal-body text-dark" id="modalContent"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a type="button" class="btn btn-primary" id="confirmRemove">Confirm</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        <a type="button" class="btn btn-primary" id="confirmRemove">Xác nhận</a>
       </div>
     </div>
   </div>

@@ -65,7 +65,7 @@ public class MyFilter extends GenericFilterBean {
     {
         if(user == null) {
             if(uri.contains("account/logout")
-                    || uri.contains("account/orders") )
+                    || uri.contains("account/order") )
             {
                 req = route(req, Page.ACCOUNT_LOGIN);
             }

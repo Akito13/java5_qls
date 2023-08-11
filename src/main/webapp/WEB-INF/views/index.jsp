@@ -15,8 +15,11 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/bootstrap/bootstrap-icons-1.10.3/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/bootstrap/custom/style.css">
 </head>
-<body class="bg-dark">
+<body class="main-bg-color">
     <%@include file="header_footer/header.jsp"%>
+    <c:if test="${hasSubHead}">
+        <jsp:include page="pages/sub-head.jsp"/>
+    </c:if>
     <jsp:include page="${view}" />
     
     <script src="${pageContext.servletContext.contextPath}/bootstrap/js/bootstrap.min.js"></script>

@@ -31,6 +31,15 @@ public class Order implements Serializable {
     @Column(name = "ngayxuat")
     private Date ngayXuat;
 
+    @Column(name = "tennguoinhan")
+    private String tenNguoiNhan;
+
+    @Column(name = "sdt")
+    private String sdt;
+
+    @Column(name = "diachinhan")
+    private String diaChiNhan;
+
     @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private List<OrderDetails> orderDetails;
 }

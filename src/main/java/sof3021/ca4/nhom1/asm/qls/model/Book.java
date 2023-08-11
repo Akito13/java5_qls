@@ -53,6 +53,10 @@ public class Book implements Serializable {
     @NotNull(message = "Quantity cannot be empty")
     private Integer soLuong;
 
+    @Column(name = "CHITIET")
+    @NotNull(message = "Description cannot be empty")
+    private String chiTiet;
+
     @OneToMany(mappedBy = "book")
     private List<OrderDetails> orderDetails;
 

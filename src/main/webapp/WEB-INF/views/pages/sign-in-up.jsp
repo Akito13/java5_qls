@@ -22,18 +22,18 @@
 <%--  <h3 style="text-align: center; color: #fff;">${unknownError }</h3>--%>
   <div class="dark-bg">
     <div class="box sign-in">
-      <h2>Already have an Account?</h2>
-      <button class="signInBtn">Sign in</button>
+      <h2>Đã có tài khoản?</h2>
+      <button class="signInBtn">Đăng nhập</button>
     </div>
     <div class="box sign-up">
-      <h2>Don't have an Account?</h2>
-      <button class="signUpBtn">Sign up</button>
+      <h2>Chưa có tài khoản?</h2>
+      <button class="signUpBtn">Đăng ký</button>
     </div>
   </div>
   <div class="frmBox ${active}">
     <div class="form signInForm">
       <form:form action="/account/login" modelAttribute="user" method="post">
-        <h3>Sign In</h3>
+        <h3>Đăng nhập</h3>
         <c:if test="${not empty msg}">
           <p class="text-success fw-semibold">${msg}</p>
         </c:if>
@@ -53,24 +53,24 @@
           </span>
         </div>
         <div class="input-container">
-          <input type="submit" value="Login">
+          <input type="submit" value="Đăng nhập ">
         </div>
         <div>
-          <a href="${pageContext.servletContext.contextPath}/account/forgot" class="forgot">Forgot Password?</a>
-          <a href="${pageContext.servletContext.contextPath}/" class="home">Home</a>
+          <a href="${pageContext.servletContext.contextPath}/account/forgot" class="forgot">Quên mật khẩu?</a>
+          <a href="${pageContext.servletContext.contextPath}/" class="home">Trang chủ</a>
         </div>
       </form:form>
     </div>
     <div class="form signUpForm">
       <form:form action="/account/signup/${step == 1 ? '1':'2'}" method="post" modelAttribute="signupUser">
-        <h3 class="mb-2">Sign Up</h3>
+        <h3 class="mb-2">Đăng ký</h3>
         <c:if test="${not empty signupError}">
           <span class="fs-6 mb-2 d-block" style="color: #c71111;">${signupError}</span>
         </c:if>
         <c:choose>
           <c:when test="${step == 1}">
             <div class="input-container">
-              <form:input path="email" type="email" placeholder="Email Address" />
+              <form:input path="email" type="email" placeholder="Email" />
               <form:errors path="email" cssClass="input-error" />
             </div>
             <div class="input-container">
@@ -78,7 +78,7 @@
               <form:errors path="password" cssClass="input-error" />
             </div>
             <div class="input-container">
-              <input name="confirmPassword" type="password" placeholder="Confirm Password">
+              <input name="confirmPassword" type="password" placeholder="Nhập lại password">
               <s:hasBindErrors name="signupUser">
                 <c:forEach var="error" items="${errors.globalErrors}">
                   <c:if test="${not empty error && error.code.equals('user.confirm.password')}">
@@ -90,29 +90,29 @@
           </c:when>
           <c:otherwise>
             <div class="input-container">
-              <form:input type="text" placeholder="Username" path="tenKH" />
+              <form:input type="text" placeholder="Họ và tên" path="tenKH" />
               <form:errors path="tenKH" cssClass="input-error" />
             </div>
             <div class="input-container">
-              <form:input path="diaChi" type="text" placeholder="Address"/>
+              <form:input path="diaChi" type="text" placeholder="Địa chỉ"/>
               <form:errors path="diaChi" cssClass="input-error" />
             </div>
             <div class="input-container">
-              <form:input path="sdt" type="text" placeholder="Phone number"/>
+              <form:input path="sdt" type="text" placeholder="Số điện thoại"/>
               <form:errors path="sdt" cssClass="input-error" />
             </div>
             <div class="input-container d-none">
-              <form:input path="email" type="text" placeholder="Phone number"/>
+              <form:input path="email" type="text" placeholder="Email"/>
               <form:errors path="sdt" cssClass="input-error" />
             </div>
             <div class="input-container d-none">
-              <form:input path="password" type="text" placeholder="Phone number"/>
+              <form:input path="password" type="text" placeholder="Password"/>
               <form:errors path="sdt" cssClass="input-error" />
             </div>
           </c:otherwise>
         </c:choose>
         <div class="input-container">
-          <input type="submit" value="Register">
+          <input type="submit" value="Đăng ký">
         </div>
 <%--        <div class="input-container">--%>
 <%--          <span class="input-error">${unknownError}</span>--%>

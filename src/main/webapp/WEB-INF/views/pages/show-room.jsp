@@ -12,25 +12,25 @@
   <aside class="col-md-3 text-center sort pt-4">
     <div class="list-group mt-5 pt-5 w-75 mx-auto">
       <c:if test="${not empty sessionScope.user && sessionScope.user.admin}">
-        <a href="/admin/book/create" class="list-group-item list-group-item-action text-bg-dark">Add a new book</a>
+        <a href="/admin/book/create" class="list-group-item list-group-item-action">Thêm sách mới</a>
       </c:if>
-      <a href="/books?sort=n" class="list-group-item list-group-item-action text-bg-dark">Sort by name</a>
-      <a href="/books?sort=p" class="list-group-item list-group-item-action text-bg-dark">Sort by price</a>
-      <a href="/books?sort=d" class="list-group-item list-group-item-action text-bg-dark">Sort by date</a>
-      <a href="/books?sort=a" class="list-group-item list-group-item-action text-bg-dark">Sort by amount</a>
+      <a href="/books?sort=n" class="list-group-item list-group-item-action">Sắp theo tên</a>
+      <a href="/books?sort=p" class="list-group-item list-group-item-action">Sắp theo giá</a>
+      <a href="/books?sort=d" class="list-group-item list-group-item-action">Sắp theo ngày</a>
+      <a href="/books?sort=a" class="list-group-item list-group-item-action">Sắp theo số lượng</a>
     </div>
   </aside>
   <main class="col-md-9 col-12">
     <div class="container-fluid mx-auto d-flex justify-content-end px-3 px-lg-4 my-4">
       <form method="get" class="w-25 pe-lg-4">
         <input type="hidden" name="sort" value="${sort}">
-        <select name="order" class="form-select bg-dark text-white" onchange="this.form.submit();">
-          <option value="h" ${order.equals("h")?"selected":""}>From highest</option>
-          <option value="l" ${order.equals("l")?"selected":""}>From lowest</option>
+        <select name="order" class="form-select" onchange="this.form.submit();" style="filter: brightness(95%);">
+          <option value="h" ${order.equals("h")?"selected":""}>Từ cao đến thấp</option>
+          <option value="l" ${order.equals("l")?"selected":""}>Từ thấp đến cao</option>
         </select>
       </form>
     </div>
-    <div class="border-start border-1 border-secondary-subtle h-85">
+    <div class="border-start border-1 h-85" style="border-color: var(--main-text-color)!important;">
       <c:choose>
         <c:when test="${not empty books}">
           <jsp:include page="main.jsp"/>
@@ -60,7 +60,7 @@
         </c:when>
         <c:otherwise>
           <div class="text-center pt-3">
-            <h3 class="fw-bold fs-2 mx-auto rounded-pill w-50" style="color: #73BBC9">No books found</h3>
+            <h3 class="fw-bold fs-2 mx-auto rounded-pill w-50 main-text-color">Không tìm thấy sách</h3>
           </div>
         </c:otherwise>
       </c:choose>

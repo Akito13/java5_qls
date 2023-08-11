@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: HP
-  Date: 5/24/2023
-  Time: 8:03 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="bootstrap" viewBox="0 0 118 94">
     <title>Bootstrap</title>
@@ -29,27 +23,33 @@
   </symbol>
 </svg>
 <header>
-  <div class="px-3 py-2 " style="background: #1d3557">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a class="me-5 ms-4" href="${pageContext.servletContext.contextPath}/"><img width="70" height="70" src="${pageContext.request.contextPath}/images/Logo.png" alt="logo"/></a>
-        <a href="${pageContext.servletContext.contextPath}/" class="nav-link my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-<%--          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>--%>
+  <div class="px-3 py-2 " style="background-color: #fff;/*#1d3557*/">
+    <div class="mx-auto">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start w-100">
+        <a class="me-3 ms-4" href="${pageContext.servletContext.contextPath}/"><img width="120" height="70" src="${pageContext.request.contextPath}/images/Logo.jpg" alt="logo"/></a>
+        <a href="${pageContext.servletContext.contextPath}/" class="nav-link my-2 my-lg-0 me-4 text-decoration-none">
           <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#home"/></svg>
-          <span>Home</span>
+          <span>Trang chủ</span>
         </a>
-
-        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
-          <li>
-            <a href="${pageContext.request.contextPath}/cart/show" class="nav-link text-white position-relative">
+        <c:if test="${not empty sessionScope.user && sessionScope.user.admin}">
+            <a href="${pageContext.servletContext.contextPath}/admin/stats" class="nav-link my-2 my-lg-0 me-4 text-decoration-none">
+                <div class="text-center">
+                    <i class="bi bi-card-list fs-3"></i>
+                </div>
+                <p class="m-0">Thống kê</p>
+            </a>
+        </c:if>
+        <form class="mb-2 mb-lg-0 mx-auto position-relative" role="search" method="get" action="/books" style="flex-grow: 0.5;">
+              <input name="bookName" type="search" class="form-control rounded-pill" placeholder="Tìm tên sách..." aria-label="Search">
+              <i class="bi bi-search position-absolute fs-5"
+                 style="-webkit-text-stroke: 0.5px #97908b; color: #97908b;
+                        right: 15px; top: 8px;"></i>
+        </form>
+        <div class="d-flex align-items-center justify-content-center">
+            <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                <li>
+                    <a href="${pageContext.request.contextPath}/cart/show" class="nav-link position-relative text-black">
                 <span class="position-absolute top-0 start-75 translate-middle-x badge rounded-pill bg-danger">
-<%--                    <c:set var="totalQuantity" scope="session" value="${0}"/>--%>
-<%--                    <c:if test="${not empty sessionScope.cart.orders}">--%>
-<%--                        <c:forEach items="${sessionScope.cart.orders}" var="book">--%>
-<%--                            <c:set var="totalQuantity" scope="session" value="${totalQuantity + book.value.soLuongMua}"/>--%>
-<%--                        </c:forEach>--%>
-<%--                    </c:if>--%>
-<%--                    <c:out value="${totalQuantity}"/>--%>
                     <c:choose>
                         <c:when test="${not empty sessionScope.totalCount}">
                             ${sessionScope.totalCount}
@@ -58,46 +58,58 @@
                     </c:choose>
                     <span class="visually-hidden">Current Amount</span>
                 </span>
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                    <use xlink:href="#table"/>
-                </svg>
-                Cart
-            </a>
-          </li>
-            <li>
-                <a href="${pageContext.servletContext.contextPath}/books" class="nav-link text-white">
-              <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
-              Products
-            </a>
-          </li>
-          <c:if test="${not empty sessionScope.user}">
-              <li>
-                  <a href="/account/orders" class="nav-link text-white">
-                      <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
-                      Orders
-                  </a>
-              </li>
-          </c:if>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="px-3 py-2 border-bottom mb-3 text-bg-dark">
-    <div class="container d-flex flex-wrap justify-content-end">
-      <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-4" role="search" method="get" action="/books">
-        <input name="bookName" type="search" class="form-control" placeholder="Search..." aria-label="Search">
-      </form>
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24">
+                            <use xlink:href="#table"/>
+                        </svg>
+                        Giỏ hàng
+                    </a>
+                </li>
+                <li>
+                    <a href="${pageContext.servletContext.contextPath}/books" class="nav-link text-black">
+                        <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                        Sách
+                    </a>
+                </li>
+                <c:if test="${not empty sessionScope.user}">
+                    <li>
+                        <a href="/account/orders" class="nav-link text-black">
+                            <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-circle"/></svg>
+                            Hàng đă đặt
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
+            <div class="text-end">
+                <c:choose>
+                    <c:when test="${empty sessionScope.user}">
+                        <a href="${pageContext.request.contextPath}/account/login" type="button" class="btn btn-outline-dark me-2">Đăng nhập</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="${pageContext.request.contextPath}/account/logout" type="button" class="btn btn-outline-dark me-2">Đăng xuất</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
 
-      <div class="text-end">
-        <c:choose>
-            <c:when test="${empty sessionScope.user}">
-                <a href="${pageContext.request.contextPath}/account/login" type="button" class="btn btn-light text-dark me-2">Login</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${pageContext.request.contextPath}/account/logout" type="button" class="btn btn-outline-light me-2">Logout</a>
-            </c:otherwise>
-        </c:choose>
       </div>
     </div>
   </div>
+<%--  <div class="px-3 py-2 border-bottom mb-3 text-bg-dark">--%>
+<%--    <div class="container d-flex flex-wrap justify-content-end">--%>
+<%--      <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-4" role="search" method="get" action="/books">--%>
+<%--        <input name="bookName" type="search" class="form-control" placeholder="Tìm tên sách..." aria-label="Search">--%>
+<%--      </form>--%>
+
+<%--      <div class="text-end">--%>
+<%--        <c:choose>--%>
+<%--            <c:when test="${empty sessionScope.user}">--%>
+<%--                <a href="${pageContext.request.contextPath}/account/login" type="button" class="btn btn-light text-dark me-2">Đăng nhập</a>--%>
+<%--            </c:when>--%>
+<%--            <c:otherwise>--%>
+<%--                <a href="${pageContext.request.contextPath}/account/logout" type="button" class="btn btn-outline-light me-2">Đăng xuất</a>--%>
+<%--            </c:otherwise>--%>
+<%--        </c:choose>--%>
+<%--      </div>--%>
+<%--    </div>--%>
+<%--  </div>--%>
 </header>

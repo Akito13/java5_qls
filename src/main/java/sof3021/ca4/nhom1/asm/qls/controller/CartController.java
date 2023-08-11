@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sof3021.ca4.nhom1.asm.qls.model.*;
 import sof3021.ca4.nhom1.asm.qls.repository.BookRepository;
@@ -21,6 +18,8 @@ import sof3021.ca4.nhom1.asm.qls.utils.Base64Encoder;
 import sof3021.ca4.nhom1.asm.qls.utils.CookieService;
 import sof3021.ca4.nhom1.asm.qls.utils.SessionService;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -47,11 +46,18 @@ public class CartController {
     @GetMapping("/show")
     public String showCart(Model model, HttpServletRequest req){
         String error = (String) model.getAttribute("error");
-        String cartId = "cart" + ((User) sessionService.getAttribute("user")).getMaKH();
+        User user = sessionService.getAttribute("user");
+        String cartId = "cart" + user.getMaKH();
+        Order order = new Order();
+        order.setTenNguoiNhan(user.getTenKH());
+        order.setSdt(user.getSdt());
+        order.setDiaChiNhan(user.getDiaChi());
         if(error != null)
             model.addAttribute("error", error);
         model.addAttribute("cartId", cartId);
         model.addAttribute("view", "pages/cart.jsp");
+        model.addAttribute("order", order);
+        model.addAttribute("ngayDat", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         return "index";
     }
 
@@ -119,13 +125,13 @@ public class CartController {
         return "redirect:/cart/show";
     }
 
-    @GetMapping("/checkout")
-    public String checkout(RedirectAttributes params){
+    @PostMapping("/checkout")
+    public String checkout(RedirectAttributes params, @ModelAttribute("order") Order order){
         User user = (User) sessionService.getAttribute("user");
         Cart cart = (Cart)sessionService.getAttribute("cart"+user.getMaKH());
         try {
             if(cart != null && user != null) {
-                Order order = new Order();
+//                Order order = new Order();
                 String error = null;
                 order.setUser(user);
                 order.setNgayXuat(new Date());
@@ -186,8 +192,7 @@ public class CartController {
             builder.append("</li>");
         }
         builder.append("</ul>");
-        builder.append("Total amount: $" + cartService.getAmount(cart));
-
+        builder.append("Total amount: " + new DecimalFormat("#,###").format(cartService.getAmount(cart)) + "đ");
         try {
             mailService.send(user.getEmail(), "Order Complete Notice", builder.toString());
         } catch (Exception e) {

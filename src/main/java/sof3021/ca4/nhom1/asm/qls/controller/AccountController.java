@@ -5,6 +5,10 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,13 +16,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sof3021.ca4.nhom1.asm.qls.model.Order;
+import sof3021.ca4.nhom1.asm.qls.model.OrderDetails;
 import sof3021.ca4.nhom1.asm.qls.model.User;
 import sof3021.ca4.nhom1.asm.qls.repository.OrderDetailsRepository;
+import sof3021.ca4.nhom1.asm.qls.repository.OrderRepository;
 import sof3021.ca4.nhom1.asm.qls.repository.UserRepository;
 import sof3021.ca4.nhom1.asm.qls.service.MailService;
 import sof3021.ca4.nhom1.asm.qls.utils.Randomizer;
 import sof3021.ca4.nhom1.asm.qls.utils.SessionService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -29,11 +37,13 @@ public class AccountController {
     @Autowired
     private SessionService sessionService;
     @Autowired
-    private OrderDetailsRepository odRepo;
+    private OrderRepository odRepo;
     @Autowired
     private MailService mailer;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepo;
 
     @InitBinder(value = {"loginUser", "signupUser", "user"})
     public void initBinder(WebDataBinder binder) {
@@ -181,10 +191,61 @@ public class AccountController {
     }
 
     @GetMapping("/orders")
-    public String showOrders(Model model) {
-        User user = (User) sessionService.getAttribute("user");
+    public String showOrders(Model model,
+                             @RequestParam("sort") Optional<String> sortBy,
+                             @RequestParam("order") Optional<String> orderBy,
+                             @RequestParam("page") Optional<Integer> currentPage) {
+        User user = sessionService.getAttribute("user");
+        String sb = sortBy.orElse("default");
+        String ob = orderBy.orElse("h");
+        Sort sort = null;
+        sort = createSort(sort, ob, sb);
+        Pageable pageable = PageRequest.of(currentPage.orElse(0), 8, sort);
+        Page<Order> page = odRepo.findAllByUserId(user.getMaKH(), pageable);
+        model.addAttribute("order", ob);
+        model.addAttribute("sort", sb);
+        model.addAttribute("orders", page.getContent());
+        model.addAttribute("page", page);
         model.addAttribute("view", "pages/account-orders.jsp");
-        model.addAttribute("orders", odRepo.findAllByUserId(user.getMaKH()));
+        return "index";
+    }
+
+    private Sort createSort(Sort sort, String orderBy, String sortBy){
+        switch (sortBy) {
+            case "n" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "tenNguoiNhan");
+            case "p" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "sdt");
+            case "d" -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "ngayXuat");
+            default -> sort = Sort.by(orderBy.equals("h") ? Sort.Direction.DESC : Sort.Direction.ASC, "maDH");
+        }
+        return sort;
+    }
+
+    @GetMapping("/order/{id}")
+    public String showOrderDetails(@PathVariable Optional<Integer> id,
+                                   Model model){
+//        model.addAttribute("view", )
+        String errors = null;
+        User user = sessionService.getAttribute("user");
+        if(id.isEmpty())
+            errors = "Mã đơn hàng rỗng";
+        else {
+            List<OrderDetails> orderDetails = orderDetailsRepo.findAllByUserAndOrder(user.getMaKH(), id.get());
+            if(orderDetails.isEmpty())
+                errors = "Không tìm thấy thông tin về đơn hàng số " + id.get();
+            else {
+                double totalAmount = orderDetails.stream()
+                                .reduce(0.0,
+                                        (currentValue, currentDetails) -> currentValue + currentDetails.getTongTien(),
+                                        Double::sum);
+                model.addAttribute("totalAmount", totalAmount);
+                model.addAttribute("order", orderDetails.get(0).getOrder());
+                model.addAttribute("details", orderDetails);
+            }
+        }
+        if(errors != null) {
+            model.addAttribute("errors", errors);
+        }
+        model.addAttribute("view", "pages/order-details.jsp");
         return "index";
     }
 
